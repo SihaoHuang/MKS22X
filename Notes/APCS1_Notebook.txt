@@ -1,0 +1,280 @@
+Inheritance: java allows objects to inherit things from their parents/superclass
+-child is called subclass/extended class
+-the subclass can have a method that is named the same - this is called overriding; though you can still do Object.toString to get their toString
+-a child class inherits all public instance variables and methods from the parent class EXCEPT CONSTRUCTORS 
+public class Wizard extends Adventurer
+-every subclass has default super(), so super needs to have a constructor that takes no parameters
+- overriding  can be like: for getHP() úÙÚÙ return bonusHealth + super.getHP();
+
+You can call a constructor by using a constructor 
+e.g. this.(p1,p2) uses triangle(Point a, Point b) to set it (it calls back another constructor in the same class)
+
+jar is a java archive which stores metadata, libraries, and images
+super()
+
+for(init;boolean;increment) {}
+e.g. for(int x=3;x<10;x++)
+if you do int x, then the for loop, x will still exist after the loop is over
+-thus, one advantage of using for loops is also that the variables do not collide 
+-you can also leave one of them out and do for(;boolean;increment) as long as it is initialized outside
+*note úÙÚÙ common mistake for nested while loops is that you initialize it all at the start, because they do not get reset in the second run 
+
+-enemy needs new instance variable to how how far it has travelled
+
+/**************************************************************************/
+
+Arrays in Java are lower level úÙÚÙ same data type, no methods built in 
+	int[]m = new int[5]; úÙÚÙ creates new list m of length 5 *note that m is a reference only 
+variablename.length returns the length of the string as a property, NOT a method so there is no ()
+
+/**************************************************************************/
+
+get(i) úÙÚÙ constant time
+grow() úÙÚÙ linear time
+set(i,v) úÙÚÙ constant time
+add(v) úÙÚÙ constant time
+add(i,v) úÙÚÙ linear time
+remove(i) úÙÚÙ linear time
+trimToSize() úÙÚÙ linear time
+
+a) úÙÚÙ 160 times if we add one to the list úÙÚÙ  resize SUM(11, 12, 13úÙÛ¶ 159) = very large number, N^2 rate
+b) úÙÚÙ 10, 20, 40, 80, 160 úÙÚÙ we double 4 times (10,20,40,80 copies = 150 operations), constant rate
+
+/**************************************************************************/
+
+Unchecked exceptions are runtime or error exceptions
+-IndexOutOfBoundsException or IllegalArgumentException are both classes
+-throw allows an exception to be used: e.g. throw new DeadShipsCannotShootException();
+-built in exceptions can be used without writing your own
+
+/**************************************************************************/
+
+compareTo sort things alphabetically, so array [úÙÚ¸A300úÙÚ˝, úÙÚ¸A31úÙÚ˝, úÙÚ¸A312úÙÚ˝] is in order
+
+try{}
+catch(exceptionType) {  } úÙÚÙ comes in pairs
+ 
+/**************************************************************************/
+
+An abstract class is a class that cannot be instantiated, by can be subclassed. It is a declared abstract, and it may or may not include abstract methods.
+The opposite of the abstract designation is concrete. There is no keyword needed for concrete. 
+
+For example: circle and rectangle are subclasses of Shape. Shape has getArea and getPerimeter but they cannot work without knowing what actual shape it is; thus, Shape can be made an abstract class with abstract methods getArea and getPerimeter for the holes to be filled in later.
+	-it can have constructors, but those are only used for super() in children classes
+abstract void moveTo(double deltaX, double deltaY); // without braces, followed by semicolon
+-it is legal to do Shape a = new Rectangle(); but you can never do new Shape (instantiating it) 
+
+If you extend an abstract class, you must fill in and implement all the abstract classes. Otherwise, you can choose to implement some, but still make yourself abstract.
+
+Potential application:
+Shape[] m = new Shape[10];
+M[0] = new Circle();
+M[1] = new Rectangle();
+*typecasting errors only occur at runtime because it will not look inside unless it is already running
+
+You can have a an array of arrays, such as int[][][], though they all have to be the same type
+ 
+/**************************************************************************/
+
+int[] f = {1,2,4,5,6}; only works when the array is instantiated -- allows an array to be initialized in one line
+int[][] b = new int[3][5] initializes new array with following dimension; NOTE this is an array of size 3 containing arrays size 5, not vice versa
+									row	 col
+b[1][2] = 9 -- allows us to access a particular slot in the matrix
+if you do int[][] = new int[10][]; you can fill in the rows yourself later with variable lengths
+
+/**************************************************************************/
+
+Data structure:
+Store matrix of solution (with random words not filled in)
+List of words successfully added
+
+java word search 5 10 words.text úÙÚÙ> in String[] args, args would become [úÙÚ¸5úÙÚ˝,úÙÚ˝10úÙÚ˝,úÙÚ˝words.textúÙÚ˝], separated by spaces between different words
+
+import java.util.*; --imports everything
+
+Random r = new Random(SEED AS ARGUMENT);
+r.nextInt();
+
+/**************************************************************************/
+
+import java.util.Scanner;
+import java.io.*;
+
+Scanner in;
+try{    // you donúÙÚ˘t want to declare things inside the block because they get cleared
+	in = new Scanner(new File(úÙÚ¸blah.txtúÙÚ˝));
+}
+catch(FileNotFileException e){
+	System.out.println(úÙÚ¸Invalid filename or pathúÙÚ˝);
+	System.exit(1);
+}
+
+When you make a function throw an exception, it passes the exception up to a higher layer.
+
+ArrayList<String> can make a list of any object, meaning it does not take things like char and int
+
+/**************************************************************************/
+
+The String[] args in a main function makes the terminal input into an array of strings (separated at their original spaces)
+	-note, however, that they are strings
+	-Integer is a wrapper class (they exist for Double; all other primatives too) which gives you built in methods
+	-Integer.parseInt("125") returns the string as a integer 
+
+/**************************************************************************/
+
+Revision keeping:
+-master branch contains release/stable version software
+-various branches and go off the main branch (E.g. development branch 1, 2úÙÛ¶)
+-developmental branches can merge back to the main branch
+
+/**************************************************************************/
+
+Interfaces -- set of things the end user can do with the object
+
+public interface Washable{
+  void mop();
+  scrub(int times);
+  scrape(int times);
+}
+
+class Floor implements Washable{}
+class Towel extends Fabric implements Washable{}
+ 
+Interfaces are not concrete, but they are different from abstract classes because...
+  - objects which are not in the same hierarchy can have the same interface, such as "Floor" and "Towel"
+
+You can also extend an interface and add to it.
+Interfaces cannot be instantiated, just like abstract classes. They are types, however.
+-they are purely organizational. 
+
+You can do
+Washable x = new SomeClassThatImplementsWashableLikeFloor
+List<String> = new ArrayList<String>();
+So, in this way, x only has access to the Washable methods
+And, you can jam different objects all with washable into a container like an array and treat them the same, even though they are different classes.
+
+Some important preexisting interfaces:
+-List: e.g. ArrayList, LinkedList (lists that look like the ones in Scheme, like [element,[element,[...]]]); List determines the generic set of methods that are shared by all Lists
+  - this is always why add returns a boolean. It is required by the interface.
+-Comparable
+-Cloneable
+
+/**************************************************************************/
+
+thing.compareTo(object o) returns positive if thing is greater than o
+Comparable and Comparable<T> are different! For Comparable<T> you can do...
+	class Apple inplments Comparable<Apple>
+	  ......
+	  public int compareTo(Apple o)
+But when you do...
+        public class Fig implements Comparable
+	  ...
+	  public int compareTo(Object o){
+	    if(o instanceOf Fig)... //check if it is compatible first
+	      Fig a = (Fig)o        //then typecast it
+	      ...
+	  }
+
+Book (concrete) -> LibraryBook (abstract) -> ReferenceBook
+					  -> CirculatingBook
+Where LibraryBook implements Comparable<LibraryBook>
+
+/*************************************************************************/
+
+public final double pi = 3.1415926 // makes a constant which can never be modified later
+-interfaces state what an object can do
+-abstract classes define what an object is
+Integer as a wrapper class is completely compatible with int operations.
+Printing an ArrayList only gives the address, but printing the list actually produces the whole list.
+
+The enhanced for loop is like for(each in blah) in python.
+for(Integer v: arr) -- works for collections of things
+Iterator<> is the interface which determines whether it works!
+  -needs to have hasNext(), next(), and optionally remove.
+
+throw new NoSuchElementException
+UnsupportedOperationException
+
+Iterable<> objects are able to return an Interator
+  they have the methods
+  public Iterator<Integer> iterator(){
+	return this;
+  }
+
+*note, you should never make the iterator iterable.
+
+SuperArray implements Iterable<String>
+SuperArrayIterator implements Iterator<String> //probably in the same file
+
+Note: % in java is not actually mod, it is remainder — you can have a negative remainder
+
+To print the exception without having it crash:
+catch(SomeException e){
+	printStackTrace();
+}
+
+/*************************************************************************/
+
+Run time comparison:
+
+Big-O notation -- O(), read as the order of __.
+O() is an upper bound (worse case assumption). Sometimes an algorithm can run on average O(NlogN) but run at O(N^2) at worst case.
+(this means that a linear function is also a N^2, 2^N... because that is the upper bound, though we want the closest one)
+We do not care about coefficients as we are comparing operations relative to each other.
+We also do not care about less significant terms.
+|   O(1): operation takes the same amount of time no matter what
+|   O(logN): e.g. binary search algorithm
+|   O(N): linear time operation 
+|   O(NlogN)
+|   O(N^2): e.g. nested loops. Polynomial time. Same for N^3, 4...
+|   O(2^N): exponential time. Worse than any polynomials. e.g. fibonacci 
+|   O(N!): factorial time. e.g. travelling salesman problem
+\/  O(N^N): could be worse, but rarely encountered 
+
+In a void function, return; breaks the function 
+
+/*************************************************************************/
+
+GUI:
+
+Add actions to the window itself because there could be multiple windows listening to the action
+-to create and format things, look up the documentation online!
+
+
+/*************************************************************************/
+
+Study for the following:
+
+-NOT GUI!
+
+Iterable interface (has iterator function)
+Iterator interface (next, hasNext, remove)
+Enhanced for loops work with Arrays and Iterable<Type>, though Arrays are not supposed to be iterable 
+
+Interfaces — Iterable<type>, Iterator<type>, List<type>, comparable<type>,  comparable, cloneable 
+Polymorphism — the ability for an object to take on different froms
+Overloading — many versions of a method (e.g. multiple constructors)
+Overriding
+
+Math.Random — know the range
+Random randgen = new Random — know the functions
+
+/*************************************************************************/
+
+Recursion overview:
+
+-do not use java to traverse a list recursively; it willl easily run out of memory (stack) as there are too many function calls
+	When there are operations outside the recursive call, the program needs to remember the value of each evaluation, making it highly ineffective
+
+	def foo(x) 
+		if x <= 0
+			return 0
+		return foo(x-1) //okay in other languages because the value does not need to be carried over (tail recursion). Java, however, remembers the stack trace, making it realy slow
+	
+	def foo(x)
+		if x <= 0
+			return 0
+		return foo(x-1) + 1 //never okay because every call needs to be put into memory to eventually do + 1
+
+-not good for linear/quadratic etc operations, but nlogn operations are suited for recursion
+-recursion helps you to keep track of the stack and cuts back wor
