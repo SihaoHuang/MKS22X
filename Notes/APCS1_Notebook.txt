@@ -270,11 +270,35 @@ Recursion overview:
 		if x <= 0
 			return 0
 		return foo(x-1) //okay in other languages because the value does not need to be carried over (tail recursion). Java, however, remembers the stack trace, making it realy slow
-	
+
 	def foo(x)
 		if x <= 0
 			return 0
 		return foo(x-1) + 1 //never okay because every call needs to be put into memory to eventually do + 1
 
 -not good for linear/quadratic etc operations, but nlogn operations are suited for recursion
--recursion helps you to keep track of the stack and cuts back wor
+-recursion helps you to keep track of the stack and cuts back work
+
+/*************************************************************************/
+
+Recursive backtracking:
+
+-knapsack problem -- you have a pile of integers and a target sum. Find if it is possible to make the sum using given integers.
+	Branch into a tree of include a person or not. The tree is recursive. 
+							
+				Yes1	      No1
+			Yes2	No2		Yes2	No2
+
+	Passes: your sum, which number you're up to (index).
+	if(val>target) return false;
+	if(val = target) return true;
+
+/*************************************************************************/
+
+Floating point numbers should not be compared using the == operator
+— rounding errors come from various operations, and simply converting decimals between binary and base 10 
+— use percent error to convert them (9-12 digits)
+
+Square root approximation
+1/2[(n/original)+ original]
+-converges in loglogn time
