@@ -302,3 +302,16 @@ Floating point numbers should not be compared using the == operator
 Square root approximation
 1/2[(n/original)+ original]
 -converges in loglogn time
+
+/*************************************************************************/
+
+N queens problem
+
+n by n array of: 
+
+-1) Queen exists
+0) Can place
+More than 1 = danger
+Use analog values for danger so that you can easily add or remove 1 from the value when you try different positions.
+
+There is one in every row: place it in order.
