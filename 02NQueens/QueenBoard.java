@@ -4,6 +4,7 @@ public class QueenBoard{
     
     public QueenBoard(int size){
 	    board = new int[size][size];
+      solutionCount = 0;
     }
 
     /**
@@ -20,7 +21,69 @@ public class QueenBoard{
     }
 
     private boolean solveH(int col){
-    	return false;
+      //base cases
+      if(col == board.length && hasPlaceable()){
+        solutionCount ++;
+        return true; //this is okay as the last col will have one unique solution for each set of conditions
+      }
+      if(col == board.length && hasPlaceable()){
+        return false;
+      }
+      //recursive call
+      else{
+        for(int row = 0; row < board.length; row ++){
+          placeQueen(row, col);
+          solveH(col+1);
+          removeQueen;
+        }
+      }
+    }
+
+    private boolean placeQueen(int row, int col){
+      if(board[row][col] == 0){
+        //adds rows
+        for(int r = 0; r < board.length; r ++){
+          board[r][col] ++;
+        }
+        //adds column
+        for(int c = 0; c < board.length; c ++){
+          board[row][c] ++;
+        }
+        //adds +m diagonal
+        for(i<width) {grid[i,-i] ++}
+        //adds -m diagonal
+        for(i<width) {grid[i,i] ++}
+        square == -1; //do last
+      }
+      if(square == 0){ //do last. We are doing this instead of having it as -1 to recover original state
+        square = -1;
+      }
+      else{
+        square = -(original+1); 
+      }
+    }
+
+    private void removeQueen(int row, int col){
+      for(each in row) {each --}
+      for(each in column) {each --}
+      for(i<width) {grid[i,-i] --}
+      for(i<width) {grid[i,i] --}
+      if(square == -1){ //recovers the original state. Note all negative integers denote the presence of a queen
+          square == 0;
+      }
+      else{
+        square = -(original+1); 
+      }
+      square = -1; 
+    }
+
+    private boolean hasPlaceable(col){
+      for(int row = 0; row < board.length; row ++){
+        if(placeQueen(row, col)){ 
+          removeQueen(row, col);
+          return true; 
+        }
+      }
     }
 
     /**
@@ -28,7 +91,8 @@ public class QueenBoard{
      *The board should be reset after this is run.    
      */
     public int getSolutionCount(){
-    	return -1;
+    	if (solutionCount == 0) return -1;
+      else return solutionCount;
     }
     /**toString
      *and all nunbers that represent queens are replaced with 'Q' 
@@ -45,16 +109,21 @@ public class QueenBoard{
 
 /********** PSEUDOCODE **********
  * 
-private boolean solveH(int col){
+private boolean solveH(int col){       //REMEMEBR THE RETURN FALSE CASE
   //base case
-  if(col == widthOfBoard && hasPlaceable()) return true; //this is okay as the last col will have one unique solution for each set of conditions
+  if(col == widthOfBoard && hasPlaceable()) {
+    count ++;
+    return true; //this is okay as the last col will have one unique solution for each set of conditions
+  }
   //recursive call
   for(each in col){
-    if(placeQueen(eachX, eachY) && solveH(col+1)) count ++;
+    placeQueen(eachX, eachY);
+    solveH(col+1);
+    removeQueen;
   }
 }
 
-private boolean placeQueen(int x, int y){
+private boolean placeQueen(int row, int col){
   if(squareIsEmpty){
     //adds rows
     for(each in row) {each ++}
@@ -64,14 +133,36 @@ private boolean placeQueen(int x, int y){
     for(i<width) {grid[i,-i] ++}
     //adds -m diagonal
     for(i<width) {grid[i,i] ++}
-    square == -1; //do last
+    if(square == 0){ //do last. We are doing this instead of having it as -1 to recover original state
+      square = -1;
+    }
+    else{
+      square = -(original+1); 
+    }
   }
   else return false;
 }
 
+private void removeQueen(int row, int col){
+  for(each in row) {each --}
+  for(each in column) {each --}
+  for(i<width) {grid[i,-i] --}
+  for(i<width) {grid[i,i] --}
+  if(square == -1){ //recovers the original state. Note all negative integers denote the presence of a queen
+      square == 0;
+  }
+  else{
+    square = -(original+1); 
+  }
+  square = -1; 
+}
+
 private boolean hasPlaceable(col){
   for(each in col){
-    if(placeQueen(eachX, eachY)) return true; 
+    if(placeQueen(eachX, eachY)){
+      removeQueen(row,col);
+      return true;
+    }   
   }
 }
 
