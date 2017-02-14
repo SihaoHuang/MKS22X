@@ -21,21 +21,25 @@ public class QueenBoard{
     }
 
     private boolean solveH(int col){
+      //System.out.println(toString());
       //base cases
-      System.out.println(col);
+      //System.out.println("on column "+col);
       if(col == board.length - 1 && hasPlaceable(col)){
         solutionCount ++;
+        //System.out.println("triggered true");
         return true; //this is okay as the last col will have one unique solution for each set of conditions
       }
       if(col == board.length - 1 && !hasPlaceable(col)){
+        //System.out.println("triggered false");
         return false;
       }
       //recursive call
       else{
         for(int row = 0; row < board.length; row ++){
-          placeQueen(row, col);
-          solveH(col+1);
-          removeQueen(row, col);
+          if (placeQueen(row, col)){
+            solveH(col+1);
+            removeQueen(row, col);
+          }
         }
         return solutionCount != 0;
       }
@@ -57,14 +61,14 @@ public class QueenBoard{
         for(int increment = 0; ((row + increment) != board.length) && ((col + increment) != board.length) ; increment ++){
           board[row + increment][col + increment] ++;
         }
-        for(int decrement = 0; ((row - decrement) != 0) && ((col - decrement) != 0) ; decrement ++){
+        for(int decrement = 0; ((row - decrement) >= 0) && ((col - decrement) >= 0) ; decrement ++){
           board[row - decrement][col - decrement] ++;
         }
         //adds +m diagonal
-        for(int increment = 0; ((row + increment) != 0) && ((col + increment) != board.length) ; increment ++){
+        for(int increment = 0; ((row - increment) >= 0) && ((col + increment) != board.length) ; increment ++){
           board[row - increment][col + increment] ++;
         }
-        for(int decrement = 0; ((row - decrement) != board.length) && ((col - decrement) != 0) ; decrement ++){
+        for(int decrement = 0; ((row + decrement) != board.length) && ((col - decrement) >= 0) ; decrement ++){
           board[row + decrement][col - decrement] ++;
         }
         board[row][col] = -1;
@@ -85,14 +89,14 @@ public class QueenBoard{
         for(int increment = 0; ((row + increment) != board.length) && ((col + increment) != board.length) ; increment ++){
           board[row + increment][col + increment] --;
         }
-        for(int decrement = 0; ((row - decrement) != 0) && ((col - decrement) != 0) ; decrement ++){
+        for(int decrement = 0; ((row - decrement) >= 0) && ((col - decrement) >= 0) ; decrement ++){
           board[row - decrement][col - decrement] --;
         }
         //adds +m diagonal
-        for(int increment = 0; ((row + increment) != 0) && ((col + increment) != board.length) ; increment ++){
+        for(int increment = 0; ((row - increment) >= 0) && ((col + increment) != board.length) ; increment ++){
           board[row - increment][col + increment] --;
         }
-        for(int decrement = 0; ((row - decrement) != board.length) && ((col - decrement) != 0) ; decrement ++){
+        for(int decrement = 0; ((row + decrement) != board.length) && ((col - decrement) >= 0) ; decrement ++){
           board[row + decrement][col - decrement] --;
         }
         board[row][col] = 0;
@@ -100,10 +104,7 @@ public class QueenBoard{
 
     private boolean hasPlaceable(int col){
       for(int row = 0; row < board.length; row ++){
-        if(placeQueen(row, col)){ 
-          removeQueen(row, col);
-          return true; 
-        }
+        if (board[row][col] == 0) return true; 
       }
       return false;
     }
@@ -141,9 +142,17 @@ public class QueenBoard{
     }
 
     public static void main(String[] args){
-      QueenBoard test = new QueenBoard(5);
+      QueenBoard test = new QueenBoard(1);
+      // test.placeQueen(5,4);
+      // test.placeQueen(3,3);
+      // test.toString();
+      // test.removeQueen(5,4);
+      // test.removeQueen(3,3);
+      // System.out.println("here");
+      // System.out.println(test.toString());
       test.solve();
-      test.toString();
+      System.out.println(test.getSolutionCount());
+      //System.out.println(test.toString());
     }
 }
 
