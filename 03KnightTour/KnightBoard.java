@@ -8,7 +8,7 @@ public class KnightBoard{
   }
 
   public void solve(){
-    System.out.println(solveH(0,0,1));
+    solveH(0,0,1);
   }
   private boolean solveH(int row, int col, int id){
     if(board.length*board[0].length + 1 == id) return true;
