@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class KnightBoard{
   private int[][] board;
   private int[][] possible;
@@ -34,28 +36,51 @@ public class KnightBoard{
     if(board.length*board[0].length + 1 == id) return true;
     if(board[row][col] == 0){
       board[row][col] = id;
-      for(int i = 0; i < 8; i ++){ 
-        //System.out.println(i);
-        if(((row + rowOrder[i]) >= 0) && ((row + rowOrder[i]) < board.length) && ((col + colOrder[i]) >= 0) && ((col + colOrder[i]) < board[0].length)){
-          //System.out.println(toString());
-          if(solveH(row + rowOrder[i], col + colOrder[i], id + 1)) return true;
-        }
+      int[] queue = generateQueue(row, col);
+      System.out.println(Arrays.toString(queue));
+      while(!isEmptyArray(queue)){
+        System.out.println(toString());
+        int i = findSmallest(queue);
+        if(solveFastH(row + rowOrder[i], col + colOrder[i], id + 1)) return true;
       }
       board[row][col] = 0;
     }
     return false;
   }
 
-  private int[] bestLocation(int row, int col){
-    int[] coord = {1,2};
+  public int findSmallest(int[] in){
+    int smallestInd = 0;
+    for(int i = 0; i < 8; i++){
+      if((in[i] != 0) && (in[i] < in[smallestInd])){
+        smallestInd = i;
+      }
+    }
+    in[smallestInd] = 0;
+    return smallestInd;
+  }
+
+  public boolean isEmptyArray(int[] in){
+    for(int each:in){
+      if(each != 0) return false;
+    }
+    return true;
+  }
+
+  private int[] generateQueue(int row, int col){ //clockwise, starting from 1 o clock direction
+    int[] out = new int[8];
     for(int i = 0; i < 8; i ++){
       if(((row + rowOrder[i]) >= 0) && ((row + rowOrder[i]) < board.length) && ((col + colOrder[i]) >= 0) && ((col + colOrder[i]) < board[0].length)){
-        if(board[row + rowOrder[i]][]) has more possiblities
-          
-        coord[0] = rowOrder[i]
-        coord[1] = colOrder[i]
+        int count = 0;
+        for(int j = 0; j < 8; j ++){
+          if(((row + rowOrder[i] + rowOrder[j]) >= 0) && ((row + rowOrder[i] + rowOrder[j]) < board.length) && ((col + colOrder[i] + colOrder[j]) >= 0) && ((col + colOrder[i] + colOrder[j]) < board[0].length)){
+            count ++;
+          }
         }
+        out[i] = count;
+      }
+      else out[i] = 0;
     }
+    return out;
   }
 
   public String toString(){
@@ -72,9 +97,10 @@ public class KnightBoard{
   }
 
   public static void main(String[] arg){
-    KnightBoard test = new KnightBoard(8,8);
-    test.solve();
+    KnightBoard test = new KnightBoard(6,6);
+    test.solveFast();
     System.out.println(test.toString());
+    //System.out.println(Arrays.toString(test.generateQueue(2,2)));
   }
 
   public String name(){
