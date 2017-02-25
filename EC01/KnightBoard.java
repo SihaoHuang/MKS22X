@@ -3,8 +3,8 @@ import java.util.Arrays;
 public class KnightBoard{
   private int[][] board;
   private int[][] possible;
-  private int[] rowOrder = {1,-1,2,2,1,-1,-2,-2};
-  private int[] colOrder = {2,2,1,-1,-2,-2,1,-1};
+  private int[] rowOrder = {2,1,-1,-2,-2,-1,1,2};
+  private int[] colOrder = {1,2,2,1,-1,-2,-2,-1};
 
   public KnightBoard(int startingRows,int startingCols){
     board = new int[startingRows][startingCols];
@@ -37,9 +37,9 @@ public class KnightBoard{
     if(board[row][col] == 0){
       board[row][col] = id;
       int[] queue = generateQueue(row, col);
-      System.out.println(Arrays.toString(queue));
+      //System.out.println(Arrays.toString(queue));
       while(!isEmptyArray(queue)){
-        System.out.println(toString());
+        //System.out.println(toString());
         int i = findSmallest(queue);
         if(solveFastH(row + rowOrder[i], col + colOrder[i], id + 1)) return true;
       }
@@ -48,10 +48,27 @@ public class KnightBoard{
     return false;
   }
 
+  private int[] generateQueue(int row, int col){ //clockwise, starting from 1 o clock direction
+    int[] out = new int[8];
+    for(int i = 0; i < 8; i ++){
+      if(((row + rowOrder[i]) >= 0) && ((row + rowOrder[i]) < board.length) && ((col + colOrder[i]) >= 0) && ((col + colOrder[i]) < board[0].length)){
+        int count = 0;
+        for(int j = 0; j < 8; j ++){
+          if(((row + rowOrder[i] + rowOrder[j]) >= 0) && ((row + rowOrder[i] + rowOrder[j]) < board.length) && ((col + colOrder[i] + colOrder[j]) >= 0) && ((col + colOrder[i] + colOrder[j]) < board[0].length)){
+            if(!(((row + rowOrder[i] + rowOrder[j]) == row) && ((col + colOrder[i] + colOrder[j]) == col))) count ++;
+          }
+        }
+        out[i] = count;
+      }
+      else out[i] = 0;
+    }
+    return out;
+  }
+
   public int findSmallest(int[] in){
     int smallestInd = 0;
     for(int i = 0; i < 8; i++){
-      if((in[i] != 0) && (in[i] < in[smallestInd])){
+      if((in[i] != 0) && ((in[i] < in[smallestInd]) || (in[smallestInd] == 0))){
         smallestInd = i;
       }
     }
@@ -64,23 +81,6 @@ public class KnightBoard{
       if(each != 0) return false;
     }
     return true;
-  }
-
-  private int[] generateQueue(int row, int col){ //clockwise, starting from 1 o clock direction
-    int[] out = new int[8];
-    for(int i = 0; i < 8; i ++){
-      if(((row + rowOrder[i]) >= 0) && ((row + rowOrder[i]) < board.length) && ((col + colOrder[i]) >= 0) && ((col + colOrder[i]) < board[0].length)){
-        int count = 0;
-        for(int j = 0; j < 8; j ++){
-          if(((row + rowOrder[i] + rowOrder[j]) >= 0) && ((row + rowOrder[i] + rowOrder[j]) < board.length) && ((col + colOrder[i] + colOrder[j]) >= 0) && ((col + colOrder[i] + colOrder[j]) < board[0].length)){
-            count ++;
-          }
-        }
-        out[i] = count;
-      }
-      else out[i] = 0;
-    }
-    return out;
   }
 
   public String toString(){
@@ -97,10 +97,10 @@ public class KnightBoard{
   }
 
   public static void main(String[] arg){
-    KnightBoard test = new KnightBoard(6,6);
+    KnightBoard test = new KnightBoard(9,9);
     test.solveFast();
     System.out.println(test.toString());
-    //System.out.println(Arrays.toString(test.generateQueue(2,2)));
+    //System.out.println(Arrays.toString(test.generateQueue(0,0)));
   }
 
   public String name(){
