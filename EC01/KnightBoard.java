@@ -37,9 +37,9 @@ public class KnightBoard{
     if(board[row][col] == 0){
       board[row][col] = id;
       int[] queue = generateQueue(row, col);
-      //System.out.println(Arrays.toString(queue));
+      System.out.println(Arrays.toString(queue));
       while(!isEmptyArray(queue)){
-        //System.out.println(toString());
+        System.out.println(toString());
         int i = findSmallest(queue);
         if(solveFastH(row + rowOrder[i], col + colOrder[i], id + 1)) return true;
       }
@@ -97,7 +97,7 @@ public class KnightBoard{
   }
 
   public static void main(String[] arg){
-    KnightBoard test = new KnightBoard(9,9);
+    KnightBoard test = new KnightBoard(5,5);
     test.solveFast();
     System.out.println(test.toString());
     //System.out.println(Arrays.toString(test.generateQueue(0,0)));
