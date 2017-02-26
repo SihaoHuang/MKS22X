@@ -2,17 +2,16 @@ import java.util.Arrays;
 import java.lang.Math;
 public class KnightBoard{
   private int[][] board;
-  private int[][] possible;
+  private int[][] matrix;
   private int[] rowOrder = {2,1,-1,-2,-2,-1,1,2};
   private int[] colOrder = {1,2,2,1,-1,-2,-2,-1};
-  private int[][] matrix;
 
   public KnightBoard(int startingRows,int startingCols){
     board = new int[startingRows][startingCols];
     matrix = new int[startingRows][startingCols];
   }
 
-  private void generateMatrix(){
+  private void generateMatrix(){ //creates matrix with squares filled with the number of possible moves each can make. This runs fast.
     for(int row = 0; row < board.length; row ++){
       for(int col = 0; col < board[0].length; col ++){
         int count = 0;
@@ -26,7 +25,7 @@ public class KnightBoard{
     }
   }
 
-  public void solveFast(){
+  public void solveFast(){ //helper function, matrix is generated first
     generateMatrix();
     solveFastH(0,0,1);
   }
@@ -48,7 +47,8 @@ public class KnightBoard{
     return false;
   }
 
-  private int[] generateQueue(int row, int col){ //clockwise, starting from 1 o clock direction
+/******************************************************AUX FUNCTIONS****************************************************************/
+  private int[] generateQueue(int row, int col){ //Generates a queue of moves surrounding a square clockwise, starting from 1 o clock direction. Constant time!
     int[] out = new int[8];
     for(int i = 0; i < 8; i ++){
       if(((row + rowOrder[i]) >= 0) && ((row + rowOrder[i]) < board.length) && ((col + colOrder[i]) >= 0) && ((col + colOrder[i]) < board[0].length)){
@@ -59,7 +59,7 @@ public class KnightBoard{
     return out;
   }
 
-  public int findSmallest(int[] in){
+  public static int findSmallest(int[] in){ //Finds the smallest number in the queue, returns it so solveFastH can attempt it first, and then sets that to zero. Constant time!
     int smallestInd = 0;
     for(int i = 0; i < 8; i++){
       if((in[i] != 0) && ((in[i] < in[smallestInd]) || (in[smallestInd] == 0))){
@@ -70,12 +70,14 @@ public class KnightBoard{
     return smallestInd;
   }
 
-  public boolean isEmptyArray(int[] in){
+  public boolean isEmptyArray(int[] in){ //If the queue is empty, stop.
     for(int each:in){
       if(each != 0) return false;
     }
     return true;
   }
+
+/******************************************************AUX FUNCTIONS****************************************************************/
 
   public String toString(){
     String output = "";
@@ -90,7 +92,7 @@ public class KnightBoard{
     	return output;
   }
 
-  public String matrixToString(){
+  public String matrixToString(){ //Debug function
     String output = "";
       for(int[] row:matrix){
         for(int each:row){
@@ -104,12 +106,11 @@ public class KnightBoard{
   }
 
   public static void main(String[] arg){
-    KnightBoard test = new KnightBoard(11,11);
+    KnightBoard test = new KnightBoard(10,10);
     //test.generateMatrix();
     //System.out.println(test.matrixToString());
     test.solveFast();
     System.out.println(test.toString());
-    //System.out.println(Arrays.toString(test.generateQueue(0,0)));
   }
 
   public String name(){
