@@ -1,7 +1,8 @@
 public class QueenBoard{
     private int[][]board;
     private int solutionCount;
-    
+    private boolean run = false;
+
     public QueenBoard(int size){
 	    board = new int[size][size];
       solutionCount = 0;
@@ -17,6 +18,7 @@ public class QueenBoard{
      *all n queens. Uses solveH
      */
     public void countSolutions(){
+      run = true;
 	    countSolutionsH(0);
     }
 
@@ -146,7 +148,7 @@ public class QueenBoard{
      *The board should be reset after this is run.    
      */
     public int getSolutionCount(){
-    	if(solutionCount == 0){
+    	if(!run){
         return -1;
       }
       else{
@@ -174,7 +176,7 @@ public class QueenBoard{
     }
 
     public static void main(String[] args){
-      QueenBoard test = new QueenBoard(30);
+      QueenBoard test = new QueenBoard(2);
       // test.placeQueen(5,4);
       // test.placeQueen(3,3);
       // test.toString();
@@ -182,8 +184,8 @@ public class QueenBoard{
       // test.removeQueen(3,3);
       // System.out.println("here");
       // System.out.println(test.toString());
-      test.solve();
-      System.out.println(test.toString());
+      //test.solve();
+      System.out.println(test.getSolutionCount());
       //System.out.println(test.toString());
     }
 }
