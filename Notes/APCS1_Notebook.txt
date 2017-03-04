@@ -315,3 +315,10 @@ More than 1 = danger
 Use analog values for danger so that you can easily add or remove 1 from the value when you try different positions.
 
 There is one in every row: place it in order.
+
+/*************************************************************************/
+
+Scanners are iterators: they have the hasNext, next functions
+Scanner f = new Scanner(“Hello this \n is not a \n good idea”);
+Or… just do Scanner(file), where file is a string
+

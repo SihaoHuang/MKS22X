@@ -18,10 +18,17 @@ public class Maze{
       3. When the file is not found OR there is no E or S then: print an error and exit the program.
     */
     public Maze(String filename){
-        animate = false;
-        loadMaze(filename);
-        writeMaze();
-        if(!textBuffer.contains('E') || !textBuffer.contains('S')) throw new FileNotFoundException("File does not contain both a start and end");
+        try{
+            animate = false;
+            loadMaze(filename);
+            writeMaze();
+            if(!textBuffer.contains("E") || !textBuffer.contains("S")){
+                throw new FileNotFoundException("File does not contain both a start and end");
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Bad file");
+        }
     }
 
     public void writeMaze(){
@@ -63,9 +70,39 @@ public class Maze{
     */
     public boolean solve(){
             int startr=-1,startc=-1;
+            for(int row = 0; row < maze.length; row ++){
+                for(int col = 0; col < maze[0].length; col ++){
+                    if(maze[row][col] == 'S') {
+                        startr = row;
+                        startc = col;
+                    }
+                }
+            }
             //Initialize starting row and startint col with the location of the S. 
             maze[startr][startc] = ' ';//erase the S, and start solving!
             return solve(startr,startc);
+    }
+
+    public boolean solve(int row, int col){
+        if(animate){
+            System.out.println("\033[2J\033[1;1H" + toStringAnimate());
+            try{
+                wait(20);
+            }
+            catch(Exception e){};
+        }
+        if(maze[row][col] == 'E') return true;
+        if((maze[row][col] == '#') || (maze[row][col] == '.') || (maze[row][col] == '@')) return false;
+
+        maze[row][col] = '@';
+
+        if((solve(row, col + 1)) || solve(row + 1, col) || solve(row, col - 1) || solve(row - 1, col)){  
+            return true;
+        }
+        else{
+            maze[row][col] = '.';
+            return false;
+        }
     }
 
     /*
@@ -81,22 +118,34 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    private boolean solve(int row, int col){
-        if(animate){
-            System.out.println("\033[2J\033[1;1H"+this);
-            wait(20);
-        }
-
-        //COMPLETE SOLVE
-        return false; //so it compiles
-    }
 
     public String toString(){
         String out = "";
         for(char[] each:maze){
             out += Arrays.toString(each);
+            out += "\n";
         }
         return out;
+    }
+
+    public String toStringAnimate(){
+        String out = "";
+        for(int row = 0; row < maze.length; row ++){
+            for(int col = 0; col < maze[0].length; col ++){
+                if(maze[row][col] == '#') out += "\0[48;5;196";
+                else if(maze[row][col] == '@') out += "\0[48;5;46 ";
+                else if(maze[row][col] == '.') out += "\0[48;5;7 ";
+                else out += "\0[48;5;0 ";
+            }
+            out += "\n";
+        }
+        return out;
+    }
+
+    public static void main(String[] args){
+        Maze test = new Maze("Maze1.txt");
+        test.setAnimate(true);
+        test.solve();
     }
 
 }
