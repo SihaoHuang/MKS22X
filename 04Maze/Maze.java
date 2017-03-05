@@ -18,17 +18,24 @@ public class Maze{
       3. When the file is not found OR there is no E or S then: print an error and exit the program.
     */
     public Maze(String filename){
+        //try{
+        animate = false;
         try{
-            animate = false;
             loadMaze(filename);
-            writeMaze();
-            if(!textBuffer.contains("E") || !textBuffer.contains("S")){
-                throw new FileNotFoundException("File does not contain both a start and end");
-            }
         }
         catch(FileNotFoundException e){
-            System.out.println("Bad file");
+            System.out.println(filename + " is invalid");
+            System.exit(0);
         }
+        writeMaze();
+        if(!textBuffer.contains("E") || !textBuffer.contains("S")){
+            System.out.println("File does not contain both a start and end");
+            System.exit(0);
+        }
+       // }
+        // catch(FileNotFoundException e){
+        //     System.out.println("Bad file");
+        // }
     }
 
     public void writeMaze(){
@@ -41,18 +48,13 @@ public class Maze{
         }
     }
 
-    public void loadMaze(String name){
-        try{
-            File infile = new File(name);// can be a path"/full/path/to/file.txt" 
-            Scanner inf = new Scanner(infile);
-            while(inf.hasNextLine()){
+    public void loadMaze(String name) throws FileNotFoundException{
+        File infile = new File(name);// can be a path"/full/path/to/file.txt" 
+        Scanner inf = new Scanner(infile);
+        while(inf.hasNextLine()){
             String line = inf.nextLine();
-            textBuffer += line + "\n";
-        }       
-        }
-        catch(FileNotFoundException e){
-            System.out.println(name + " is invalid");
-        }
+            textBuffer += line + "\n";  
+        }   
     }
 
     public void setAnimate(boolean b){
@@ -143,9 +145,10 @@ public class Maze{
     }
 
     public static void main(String[] args){
-        Maze test = new Maze("Maze1.txt");
-        test.setAnimate(true);
+        Maze test = new Maze("data3.dat");
+        test.setAnimate(false);
         test.solve();
+        System.out.println(test.toString());
     }
 
 }
