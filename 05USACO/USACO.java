@@ -15,7 +15,12 @@ public class USACO{
 
   public static void main(String[] args){
     USACO x = new USACO();
-    System.out.println(silver("ctravel." + args[0] + ".in"));
+    for(int i = 1; i < 11; i ++){
+      System.out.println(silver("ctravel." + i + ".in"));
+    }
+    for(int i = 1; i < 11; i ++){
+      System.out.println(bronze("makelake." + i + ".in"));
+    }
   }
 
 }

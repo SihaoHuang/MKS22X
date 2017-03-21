@@ -2,7 +2,7 @@ import java.lang.Math;
 import java.util.Arrays;
 public class Quick{
 
-  public static int part(int[] data, int start, int end){
+  public static int[] part(int[] data, int start, int end){
     int pivotInd = (int)(Math.random() * ((double)end - (double)start) + (double)start);
     int pivot = data[pivotInd];
     int lt = start;
@@ -24,14 +24,15 @@ public class Quick{
         gt --;
       }
     }
-    return (lt + gt)/2;
+    int[] ans = {lt, gt};
+    return ans;
   }
 
   public static int[] quicksortH(int[] arr, int left, int right){
     if(left < right){
-      int p = part(arr, left, right);
-      quicksortH(arr, p + 1, right); 
-      quicksortH(arr, left, p - 1);
+      int[] ind = part(arr, left, right);
+      quicksortH(arr, ind[1] + 1, right); 
+      quicksortH(arr, left, ind[0] - 1);
     }
     return arr;
   }
@@ -44,7 +45,7 @@ public class Quick{
     int[] arr = new int[size];
     for(int i = 0; i < size; i ++){
       if((int)(Math.random() * 2) == 1){
-        arr[i] = (int)(Math.random() * 1000.0);
+        arr[i] = (int)(Math.random() * 2.0);
       }
       else{
         arr[i] = -(int)(Math.random() * 1000.0);
@@ -57,7 +58,9 @@ public class Quick{
     //[25, 24, 4, 77, 86, 61, 40, 11, 1, 30] breaks
     int size = Integer.parseInt(args[0]);
     int[] test = randomArray(size);
-    System.out.println(Arrays.toString(test));
+    //System.out.println(Arrays.toString(test));
+    // quicksort(test);
+    // System.out.println("done");
     System.out.println(Arrays.toString(quicksort(test)));
   }
 
