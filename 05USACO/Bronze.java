@@ -57,12 +57,10 @@ public class Bronze{
 
   public void makeLake(){
     for(int step = 0; step < steps.length; step ++){
-      for(int i = 0; i < steps[step][2]; i ++){
-        int largest = findLargest(steps[step][0], steps[step][1]);
-        for(int r = steps[step][0] - 1; r < steps[step][0] + 2; r ++){
-          for(int c = steps[step][1] - 1; c < steps[step][1] + 2; c ++){
-            if(lake[r][c] == largest) lake[r][c] --;
-          }
+      int stompedHeight = findLargest(steps[step][0], steps[step][1]) - steps[step][2];
+      for(int r = steps[step][0] - 1; r < steps[step][0] + 2; r ++){
+        for(int c = steps[step][1] - 1; c < steps[step][1] + 2; c ++){
+          if(lake[r][c] > stompedHeight) lake[r][c] = stompedHeight;
         }
       }
     }

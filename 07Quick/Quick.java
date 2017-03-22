@@ -28,6 +28,26 @@ public class Quick{
     return ans;
   }
 
+  public static int quickselect(int[] data, int k){
+    quickselectH(data, 0, data.length - 1, k); //check this too
+  }
+
+  public static quickselectH(int[] arr, int left, int right, int k){
+    if(left == right) return arr[k];
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    
+  }
+
+  public static int[] quicksort(int[] data){
+    return quicksortH(data, 0, data.length - 1); //check if this has to be length - 1
+  }
+
   public static int[] quicksortH(int[] arr, int left, int right){
     if(left < right){
       int[] ind = part(arr, left, right);
@@ -35,10 +55,6 @@ public class Quick{
       quicksortH(arr, left, ind[0] - 1);
     }
     return arr;
-  }
-
-  public static int[] quicksort(int[] data){
-    return quicksortH(data, 0, data.length - 1); //check if this has to be length - 1
   }
 
   public static int[] randomArray(int size){
