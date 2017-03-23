@@ -29,19 +29,15 @@ public class Quick{
   }
 
   public static int quickselect(int[] data, int k){
-    quickselectH(data, 0, data.length - 1, k); //check this too
+    return quickselectH(data, 0, data.length - 1, k); //check this too
   }
 
-  public static quickselectH(int[] arr, int left, int right, int k){
-    if(left == right) return arr[k];
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    
+  public static int quickselectH(int[] arr, int left, int right, int k){
+    int[] pivots = part(arr, left, right);
+    int pivot = pivots[0] + pivots[1];
+    if(pivot == k) return arr[k];
+    if(pivot < k) return quickselectH(arr, left + 1, right, k);
+    else return quickselectH(arr, left, right - 1, k);    
   }
 
   public static int[] quicksort(int[] data){
@@ -71,13 +67,15 @@ public class Quick{
   }
 
   public static void main(String[] args){
-    //[25, 24, 4, 77, 86, 61, 40, 11, 1, 30] breaks
+    //[25, 24, 4, 77, 86, 61, 40, 11, 1, 30] 
     int size = Integer.parseInt(args[0]);
     int[] test = randomArray(size);
     //System.out.println(Arrays.toString(test));
     // quicksort(test);
     // System.out.println("done");
     System.out.println(Arrays.toString(quicksort(test)));
+    int[] test2 = {25, 24, 4, 77, 86, 61, 40, 11, 1, 30};
+    System.out.println(quickselect(test2, 1));
   }
 
 }
