@@ -69,22 +69,44 @@ public class Quick{
         arr[i] = (int)(Math.random() * 2.0);
       }
       else{
-        arr[i] = -(int)(Math.random() * 1000.0);
+        arr[i] = -(int)(Math.random() * 100000.0);
       }
     }
     return arr;
   }
+
+  public static int[] randomArraySmall(int size){
+    int[] arr = new int[size];
+    for(int i = 0; i < size; i ++){
+      if((int)(Math.random() * 2) == 1){
+        arr[i] = (int)(Math.random() * 2.0);
+      }
+      else{
+        arr[i] = -(int)(Math.random() * 10.0);
+      }
+    }
+    return arr;
+  }
+
+  public static int[] sameArray(int size){
+    int[] arr = new int[size];
+    for(int i = 0; i < size; i ++){
+      arr[i] = 1;
+    }
+    return arr;
+  }
+  //randomize, randomized 0-10, all same value, sorted. reverse sorted
 
   public static void main(String[] args){
     //[25, 24, 4, 77, 86, 61, 40, 11, 1, 30] 
     int size = Integer.parseInt(args[0]);
     int[] test = randomArray(size);
     //System.out.println(Arrays.toString(test));
-    //quicksort(test);
-    //System.out.println("done");
+    quicksort(test);
+    System.out.println("done");
     //System.out.println(Arrays.toString(quicksort(test)));
-    int[] test2 = {25, 24, 4, 77, 86, 61, 40, 11, 1, 30, -9};
-    System.out.println(quickselect(test2, size));
+    //int[] test2 = {25, 24, 4, 77, 86, 61, 40, 11, 1, 30, -9};
+    //System.out.println(quickselect(test2, size));
   }
 
 }
