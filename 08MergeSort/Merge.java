@@ -3,44 +3,49 @@ import java.util.Arrays;
 public class Merge{
 
   public static void mergesort(int[] ary) {
-    if(ary.length <= 1) return;
+    if(ary.length <= 1) return; //exit condition
+    //split array into 2
     int[] left = new int[ary.length/2];
     int[] right = new int[ary.length - ary.length/2];
-    for(int i = 0; i < ary.length/2; i ++){
-      left[i] = ary[i];
+    int aryIndex = 0;
+    for(; aryIndex < ary.length/2; aryIndex ++){
+      left[aryIndex] = ary[aryIndex];
     }
-    for(int i = (ary.length - ary.length/2 - 1); i < ary.length; i ++){
-      right[i - (ary.length - ary.length/2 - 1)] = ary[i];
+    int rightIndex = 0;
+    for(; aryIndex < ary.length; aryIndex ++){
+      right[rightIndex] = ary[aryIndex];
+      rightIndex ++;
     }
+
+    //recursive calls
     mergesort(left);
     mergesort(right);
+    //merge in order
     int a = 0; //index for the first array
     int b = 0; //index for the second array
-    int i = 0; //index for the large array
-    while((a < left.length) && (b < right.length)){
-      while(left[a] <= right[b]){
+    for(int i = 0; i < ary.length; i ++){
+      if(b == right.length){
         ary[i] = left[a];
-        i ++;
         a ++;
       }
-      while(left[a] >= right[b]){
+      else if(a == left.length){
         ary[i] = right[b];
-        i ++;
+        b ++;
+      }
+      else if(left[a] < right[b]){
+        ary[i] = left[a];
+        a ++;
+      }
+      else{
+        ary[i] = right[b];
         b ++;
       }
     }
-    if(left.length > right.length){
-      chop off the end
-    }
-    if(right.length > left.length){
-      chop off the end
-    }
-    chop off the end of the longer array, add it to the end
   }
-
+  
   public static void main(String[] args){
-    int[] test = {0,1,2,3,4,5,6};
+    int[] test = {4,2,4,1,2,1};
     mergesort(test);
+    System.out.println(Arrays.toString(test));
   }
-
 }
