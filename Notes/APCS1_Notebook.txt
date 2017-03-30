@@ -322,7 +322,7 @@ Scanners are iterators: they have the hasNext, next functions
 Scanner f = new Scanner(“Hello this \n is not a \n good idea”);
 Or… just do Scanner(file), where file is a string
 
-
+/*************************************************************************/
 
 Powersets
 
@@ -333,5 +333,7 @@ Powersets
   {d}, {a,d}, {b,d}, {a,b,d}, {c,d}, {a,c,d}, {b,c,d}, {a,b,c,d}}  is the powerset of {a,b,c,d}
 
 -without using recursive backtracking… you can double the first half without the last letter and then add the last letter
+
+/*************************************************************************/
 
 
