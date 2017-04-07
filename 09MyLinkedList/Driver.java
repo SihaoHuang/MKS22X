@@ -9,9 +9,13 @@ public class Driver{
         System.out.println(test.toString());
         System.out.println(test.size());
         test.set(4, 10);
+        System.out.println(test.toString());
         System.out.println(test.get(4));
-        System.out.println(test.indexOf(10));
         System.out.println(test.remove(5));
         System.out.println(test.toString());
     }
 }
+
+
+//make a node toString() which prints (null)5(3) (5)3(6) eetc
+//iterator<Integer>

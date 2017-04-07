@@ -336,4 +336,27 @@ Powersets
 
 /*************************************************************************/
 
+Stack
+
+[][][][][][accessible] <- 
+
+- Stack<T>; push(value); pop()
+- Last in first out (LIFO) system
+- The memory stack is an object on the heap, but you can make it generic too
+- an interface; can be implemented by both ArrayListS and LinkedList
+- this allows you to fake recursion with a much larger stack, though this is rarely worthwhile 
+
+Queue
+
+->[in][][][][][out]->
+
+- similar to an actual queue: First In First Out (FIFO)
+- enqueue, dequeue elements
+- easily implemented by a linked list
+- also doable via an Array by cycling through the empty spaces even though it tends to travel in one direction
+[5][8][1][7][0][2][5][6][][][5][3] <- wraps around
+- these operations are constant time!
+- double ended queues (deque) allow you to add and remove on both sides (performs the role of both a queue and a stack
+
+
 
