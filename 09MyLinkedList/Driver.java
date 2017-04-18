@@ -4,15 +4,24 @@ public class Driver{
         test.add(3);
         test.add(1);
         test.add(4);
+        test.add(1);
         test.add(5);
         test.add(9);
-        System.out.println(test.toString());
-        System.out.println(test.size());
-        test.set(4, 10);
-        System.out.println(test.toString());
-        System.out.println(test.get(4));
-        System.out.println(test.remove(5));
-        System.out.println(test.toString());
+        for(int each:test){
+            System.out.println(each);
+        }
+        // System.out.println(test.toString());
+        // System.out.println(test.size());
+        // test.set(4, 10);
+        // System.out.println(test.toString());
+        // System.out.println(test.get(4));
+        // System.out.println(test.remove(3));
+        // System.out.println(test.toString());
+        // System.out.println(test.set(0,100));
+        // System.out.println(test.toString());
+        // System.out.println(test.indexOf(99));
+        // System.out.println(test.add(4,-10));
+        // System.out.println(test.toString());
     }
 }
 
