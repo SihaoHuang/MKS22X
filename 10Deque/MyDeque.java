@@ -2,18 +2,21 @@ import java.util.*;
 public class MyDeque{
     private String[] data; 
     private int size, first, last;
-    public void MyDeque(){
-        data = new String[100];
+    public MyDeque(){
+        data = new String[10];
         first = 0;
         last = 0;
         size = 0;
     }
     public String toString(){
         String out = "";
-        for(String each:data){
-            out += each + " ";
+        for(int i = 0; i < data.length; i ++){
+            if(data[i] == null){
+                out += "null" + " ";
+            }
+            else out += data[i] + " ";
         }
-        out += first + " " + last;
+        out += "first:" + first + ", last:" + last;
         return out;
     }
     private void doubleSize(){
@@ -31,32 +34,45 @@ public class MyDeque{
                 temp[i] = data[i];
             }
         }
+       data = temp;
     }
     public void addFirst(String e){
-        if(size >= data.length) doubleSize();
         if(e == null) throw new NullPointerException();
-        if(first == 0){
-            first = data.length - 1;
+        if(size == 0){
             data[first] = e;
+            size ++;
         }
         else{
-            first --;
-            data[first] = e;
+            size ++;
+            if(size >= data.length) doubleSize();
+            else if(first == 0){
+                first = data.length - 1;
+                data[first] = e;
+            }
+            else{
+                first --;
+                data[first] = e;
+            }
         }
-        size ++;
     }
     public void addLast(String e){
-        if(size >= data.length) doubleSize();
         if(e == null) throw new NullPointerException();
-        if(last == data.length - 1){
-            last = 0;
+        if(size == 0){
             data[last] = e;
+            size ++;
         }
         else{
-            last --;
-            data[last] = e;
+            size ++;
+            if(size >= data.length) doubleSize();
+            else if(last == data.length - 1){
+                last = 0;
+                data[last] = e;
+            }
+            else{
+                last ++;
+                data[last] = e;
+            }
         }
-        size ++;
     }
     public String removeFirst(){
         if(size == 0) throw new NoSuchElementException();
