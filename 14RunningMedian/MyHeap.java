@@ -1,39 +1,39 @@
 public class MyHeap{
-    private String[] data;
+    private Integer[] data;
     private int size; //not actually size, but last index
     private int isMax;
     public MyHeap(){
-        data = new String[10];
+        data = new Integer[10];
         size = 1;
         isMax = 1;
     }
     public MyHeap(boolean t){
-        data = new String[10];
+        data = new Integer[10];
         size = 1;
         if(t) isMax = 1;
         else isMax = -1; 
     }
     public String toString(){
         String temp = "";
-        for(String each:data){
+        for(Integer each:data){
             temp += each + " ";
         }
         return temp;
     }
-    public void add(String s){
+    public void add(Integer s){
         if(size >= data.length - 1) resize();
         data[size] = s;
         pushUp(size);
         size ++;
     }
-    public String remove(){
-        String temp = data[1];
+    public Integer remove(){
+        Integer temp = data[1];
         data[1] = data[size - 1];
         pushDown(1);
         size --;
         return temp;
     }
-    public String peek(){
+    public Integer peek(){
         return data[1];
     }
     public int size(){
@@ -61,12 +61,12 @@ public class MyHeap{
         return ((2 * index) < size);
     }
     private void swap(int first, int second){
-        String temp = data[second];
+        Integer temp = data[second];
         data[second] = data[first];
         data[first] = temp;
     }
     private void resize(){
-        String[] temp = new String[data.length * 2];
+        Integer[] temp = new Integer[data.length * 2];
         for(int i = 1; i < data.length; i ++){
             temp[i] = data[i];
         }
