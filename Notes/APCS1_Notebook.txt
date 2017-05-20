@@ -358,5 +358,113 @@ Queue
 - these operations are constant time!
 - double ended queues (deque) allow you to add and remove on both sides (performs the role of both a queue and a stack
 
+/*************************************************************************/
 
+Heap -- true with biggest on top, left right side dont matter
+must be full when you go from left to right
+        40
+    11      32
+   5  1    20 19
+  2 4
+Easy to add small numbers, difficult to add big ones
+        40
+    11      32
+   5  1    20 19
+  2 4     70
 
+        40
+    11      32
+   5  1    70 19
+  2 4     20
+
+        40
+    11      70
+   5  1    32 19
+  2 4     20
+
+        70
+    11      40
+   5  1    32 19
+  2 4     20
+
+  If you remove 70...
+
+        HOLE
+    11      40
+   5  1    32 19
+  2 4     20
+
+        20
+    11      40
+   5  1    32 19
+  2 4     **
+
+  //then slowly swap the 20 down the tree
+
+  Number the things and make it a list!
+
+         1
+    2        3
+  4   5    6   7
+
+  To find your parent you simply do /2 in java which works for both odd and even indices!
+
+  [70][11][40][5][1][32][][]...
+
+  Add/remove worst case is swapping down the height of the tree, logn runtime
+
+  To swap it from a maxheap to a minheap, just negate every compareTo (multiply it by a negative constant)
+
+/*************************************************************************/
+
+  Finding medians:
+  - getMedian(), O(nlogn)
+  - add(v), O(1)
+  If you want to add to an arraylist in order, inserting takes O(n), and then getMedian would only be O(1)... but doing it initially would take O(n^2) to create the list
+  To make this faster whenever something is added, change it into a heap so that add O(logn) would still maintain the order
+
+  Balance the sizes of the two heaps, and then take the average of the apex on both heaps to get the medians OR look at the larger heap if they differ by one
+
+  MAXHEAP | MINHEAP 
+    20              -- median = 20
+
+  MAXHEAP | MINHEAP
+    20        64    -- median = 20+64/2
+
+  MAXHEAP | MINHEAP
+    64        65    -- median = 64
+  20  21    72
+
+  Here, getMedian is O(1), add is O(logn)
+
+  Heapsort: 
+  Go from bottom up, start awarding thing heap status and move up slowly, swapping values, to heapify. (linear time)
+  
+  PriorityQueue:
+  Heap with nodes composed of a value, a priority, and the arrival numbers
+  
+/*************************************************************************/
+
+  Mazes:
+
+  Bredth-first search (always gets shortest distance)
+  Use a queue of different elements with increasing distances from the origin
+    0       1         2       (distance from origin)
+  [][][] | [][] | [][][][] | .....
+     <---------------
+
+  Depth-first search -- instead of a queue, use a stack.
+  - the node which you are processing is called the frontier
+  - display nodes which are still in the frontier as ? and nodes which have been processed as .
+
+  Best-first search
+  These are very bad methods when there is a lot of open space.
+  If you know the direction of the target, prioritize the node with the lower distance
+  - Since you cannot go diagonally, use Manhattan distance
+  However this does not guarantee the lowest distance either as it is a greedy search: you might take a much longer distance because the search is affixed on the shortest length to target.
+
+  A*
+  Include the distance you have already travelled in the priority! = distanve you have travelled + distance you then need to travel minimally
+  - this then guarantees the best path
+
+  
