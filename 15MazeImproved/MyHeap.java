@@ -3,7 +3,7 @@ public class MyHeap{
     private int size; //not actually size, but last index
     private int isMax;
     public MyHeap(){
-        data = new [10];
+        data = new Location[10];
         size = 1;
         isMax = 1;
     }

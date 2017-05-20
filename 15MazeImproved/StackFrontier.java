@@ -1,16 +1,19 @@
 import java.util.*;
 public class StackFrontier implements Frontier{
-    private Stack<Locaton> data;
+    private Stack<Location> data;
     public StackFrontier(){
-        data = new Stack()<Location>;
+        data = new Stack<Location>();
     }
     public void add(Location loc){
         data.push(loc);
     }
     public Location next(){
-        data.pop();
+        return data.pop();
     }
     public Location peek(){
-        data.peek;
+        return data.peek();
+    }
+    public boolean hasNext(){
+        return !(data.peek() == null);
     }
 }

@@ -3,32 +3,35 @@ public class Location implements Comparable<Location>{
     Location previous;
     int distToStart, distToEnd;
     boolean aStar;
-    public Location(int row, int col, Location previous, int distToStart, int distToGoal){
+    public Location(int row, int col, Location previous, int distToStart, int distToEnd){
         this.row = row;
         this.col = col;
         this.previous = previous;
         this.distToStart = distToStart;
-        this.distToGoal = distToGoal;
+        this.distToEnd = distToEnd;
         aStar = false;
     }
-    public Location(int row, int col, Location previous, int distToStart, int distToGoal, boolean aStar){
+    public Location(int row, int col, Location previous, int distToStart, int distToEnd, boolean aStar){
         this.row = row;
         this.col = col;
         this.previous = previous;
         this.distToStart = distToStart;
-        this.distToGoal = distToGoal;
+        this.distToEnd = distToEnd;
         this.aStar = aStar;
     }
     public int compareTo(Location other){
         if(aStar){
-            return (distToGoal + distToStart) - (other.getDistToGoal() + other.getDistToStart());
+            return (distToEnd + distToStart) - (other.getDistToEnd() + other.getDistToStart());
         }
         else{
-            return distToGoal - other.getDistToGoal();
+            return distToEnd - other.getDistToEnd();
         }
     }
-    public int getDistance(){
+    public int getDistToStart(){
         return distToStart;
+    }
+    public int getDistToEnd(){
+        return distToEnd;
     }
     public int getRow(){
         return distToEnd;
