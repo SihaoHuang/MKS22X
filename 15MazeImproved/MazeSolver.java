@@ -46,4 +46,10 @@ public class MazeSolver{
     private Location toLocation(int row, int col, Location loc, boolean astar){
         return new Location(row, col, loc, distance(row, col, board.getStart()), distance(row, col, board.getEnd()), astar);
     }
+    public static void main(String[] args){
+        String filename = args[0];
+        int solveMethod = Integer.parseInt(args[1]);
+        MazeSolver solver = new MazeSolver(filename);
+        solver.solve(solveMethod);
+    }
 }

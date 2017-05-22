@@ -1,6 +1,6 @@
 import java.util.*;
 public class QueueFrontier implements Frontier{
-    private LinkedList data;
+    private LinkedList<Location> data;
     public QueueFrontier(){
         data = new LinkedList<Location>();
     }
