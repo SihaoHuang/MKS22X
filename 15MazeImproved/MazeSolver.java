@@ -4,6 +4,9 @@ public class MazeSolver{
     public MazeSolver(String filename){
         board = new Maze(filename);
     }
+    public String toString(){
+        return board.toString();
+    }
     public void solve(){
         solve(1);
     }
