@@ -34,10 +34,10 @@ public class Location implements Comparable<Location>{
         return distToEnd;
     }
     public int getRow(){
-        return distToEnd;
+        return row;
     }
     public int getCol(){
-        return distToEnd;
+        return col;
     }
 }
 
