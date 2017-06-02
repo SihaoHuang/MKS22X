@@ -467,4 +467,25 @@ Easy to add small numbers, difficult to add big ones
   Include the distance you have already travelled in the priority! = distanve you have travelled + distance you then need to travel minimally
   - this then guarantees the best path
 
+/*************************************************************************/
+
+  Processing:
+  void setup(){} //runs one time
+  void draw(){} //keeps cycling and executing
+  void mousePressed(){} //run when mouse clicked
+  Make a: void update(){} //use this to update stuff
+  mouse(x, y)
+  -look into the vector class!
+
+  writeInitialSolution()
+  time = 0
+  for(iterations):
+    dt = calculateTimePerCell
+    if(time + dt  > stopping) break
+    for(Element):
+      for(RungeKuttaSteps):
+        solve
+      updateElement
+    resetRungeKuttaValues
+    time += dt
   
