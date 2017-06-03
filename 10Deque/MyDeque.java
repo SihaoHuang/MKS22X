@@ -3,7 +3,7 @@ public class MyDeque{
     private String[] data; 
     private int size, first, last;
     public MyDeque(){
-        data = new String[10];
+        data = new String[10000000]; //memory vs runtime
         first = 0;
         last = 0;
         size = 0;
@@ -26,7 +26,8 @@ public class MyDeque{
                 temp[i] = data[i];
             }
             for(int i = first; first < data.length; first ++){
-                temp[temp.length - i] = data[i]; // check this?
+                //temp[temp.length - i] = data[i]; // check this?
+                temp[temp.length - i - 1] = data[i];
             }
         }
         else if(last > first){

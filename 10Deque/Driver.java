@@ -10,8 +10,10 @@ public class Driver{
        test.addLast("g");
        test.addLast("h");
        test.addLast("i");
+System.out.println(test.toString());
        test.addLast("j");
        test.addLast("k");
+System.out.println(test.toString());
        test.addLast("l");
        test.addFirst("x");
        System.out.println(test.toString());
