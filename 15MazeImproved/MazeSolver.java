@@ -1,11 +1,19 @@
 public class MazeSolver{
     private Maze board;
     private Frontier frontier;
+    private boolean animate;
     public MazeSolver(String filename){
         board = new Maze(filename);
     }
+    public MazeSolver(String filename, boolean animate){
+        board = new Maze(filename);
+        this.animate = animate;
+    }
     public String toString(){
         return board.toString();
+    }
+    public String toString(int n){
+        return board.toString(n);
     }
     public void solve(){
         solve(1);
@@ -58,7 +66,11 @@ public class MazeSolver{
         System.out.println(solver.toString());
         solver.solve(solveMethod);
     }
+    public void solve(){
+        solve(1);
+    }
     public void solve(int n){
+        if(animate) System.out.println(toString(50));
         boolean astar = false;
         if(n == 0) frontier = new StackFrontier();
         if(n == 1) frontier = new QueueFrontier();
@@ -67,19 +79,19 @@ public class MazeSolver{
             frontier = new FrontierPriorityQueue();
             astar = true;
         }
-        frontier.add(board.getStart());
+        frontier.add(board.getStart()); //add start
         board.set(board.getStart().getRow(), board.getStart().getCol(), '?');
         while(frontier.hasNext()){ //remember to write hasNext
             Location current = frontier.next();
             board.set(current.getRow(), current.getCol(), '.');
-            if(frontier.next().compareTo(board.getEnd()) == 0){
+            if(frontier.next().compareTo(board.getEnd()) == 0){ //if solved, loop through and set @
                 while(current.previous != null){
                     board.set(current.getRow(), current.getCol(), '@');
                     current = current.previous;
                 }
                 return;
             }
-            makeValidNeighbors(current, astar);
+            makeValidNeighbors(current, astar); //makeValidNeighbors adds the ?
         }
     }
 }
