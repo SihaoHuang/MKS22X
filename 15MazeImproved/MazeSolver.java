@@ -18,22 +18,6 @@ public class MazeSolver{
     public void solve(){
         solve(1);
     }
-    // public void solve(int n){
-    //     boolean astar = false;
-    //     if(n == 0) frontier = new StackFrontier();
-    //     if(n == 1) frontier = new QueueFrontier();
-    //     if(n == 2) frontier = new FrontierPriorityQueue();
-    //     if(n == 3){
-    //         frontier = new FrontierPriorityQueue();
-    //         astar = true;
-    //     }
-    //     Location current = board.getStart();
-    //     while((frontier.next().compareTo(board.getEnd()) != 0) && frontier.hasNext()){ //remember to write hasNext
-    //         makeValidNeighbors(current, astar);
-    //         board.set(current.getRow(), current.getCol(), '.');
-    //         current = frontier.next();
-    //     }
-    // }
     private void makeValidNeighbors(Location loc, boolean astar){
         //if not # or . create location, push to stack
         if(board.get(loc.getRow() + 1, loc.getCol()) != '.' && board.get(loc.getRow() + 1, loc.getCol()) != '#'){
@@ -65,9 +49,7 @@ public class MazeSolver{
         MazeSolver solver = new MazeSolver(filename);
         System.out.println(solver.toString());
         solver.solve(solveMethod);
-    }
-    public void solve(){
-        solve(1);
+        System.out.println(solver.toString());
     }
     public void solve(int n){
         if(animate) System.out.println(toString(50));
@@ -81,19 +63,24 @@ public class MazeSolver{
         }
         frontier.add(board.getStart()); //add start
         board.set(board.getStart().getRow(), board.getStart().getCol(), '?');
+        //System.out.println("here 1");
         while(frontier.hasNext()){ //remember to write hasNext
+            //System.out.println("here 2");
             Location current = frontier.next();
-            board.set(current.getRow(), current.getCol(), '.');
-            if(frontier.next().compareTo(board.getEnd()) == 0){ //if solved, loop through and set @
+            if(current.compareTo(board.getEnd()) == 0){ //if solved, loop through and set @
                 while(current.previous != null){
                     board.set(current.getRow(), current.getCol(), '@');
                     current = current.previous;
                 }
                 return;
             }
+            board.set(current.getRow(), current.getCol(), '.');
             makeValidNeighbors(current, astar); //makeValidNeighbors adds the ?
         }
     }
+    // public void solve(){
+    //     solve(1);
+    // }
 }
     
 // to solve():

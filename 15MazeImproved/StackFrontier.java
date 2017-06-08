@@ -10,9 +10,6 @@ public class StackFrontier implements Frontier{
     public Location next(){
         return data.pop();
     }
-    public Location peek(){
-        return data.peek();
-    }
     public boolean hasNext(){
         return !(data.peek() == null);
     }

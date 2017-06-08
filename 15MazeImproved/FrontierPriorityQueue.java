@@ -1,17 +1,14 @@
 import java.util.*;
 public class FrontierPriorityQueue implements Frontier{
-    private MyHeap data;
+    private PriorityQueue<Location> data;
     public FrontierPriorityQueue(){
-        data = new MyHeap();
+        data = new PriorityQueue<Location>();
     }
     public void add(Location loc){
         data.add(loc);
     }
     public Location next(){
         return data.remove();
-    }
-    public Location peek(){
-        return data.peek();
     }
     public boolean hasNext(){
         return !(data.peek() == null);
