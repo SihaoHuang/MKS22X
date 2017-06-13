@@ -10,6 +10,9 @@ public class FrontierPriorityQueue implements Frontier{
     public Location next(){
         return data.remove();
     }
+    public int size(){
+        return data.size();
+    }
     public boolean hasNext(){
         return !(data.peek() == null);
     }

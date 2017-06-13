@@ -5,12 +5,15 @@ public class StackFrontier implements Frontier{
         data = new Stack<Location>();
     }
     public void add(Location loc){
-        data.push(loc);
+        data.add(loc);
     }
     public Location next(){
         return data.pop();
     }
     public boolean hasNext(){
-        return !(data.peek() == null);
+        return data.size() > 0;
+    }
+    public int size(){
+        return data.size();
     }
 }
